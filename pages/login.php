@@ -70,10 +70,10 @@ unset($_SESSION['timed_out']);
         </div>
 
         <div class="flex-1 flex items-center justify-center py-8">
-            <div class="w-full max-w-sm">
+            <div class="w-full max-w-md xl:max-w-lg">
                 <span class="hidden lg:flex w-12 h-12 rounded-2xl bg-primary-50 text-primary-600 items-center justify-center mb-5"><?= icon('key', 'w-6 h-6') ?></span>
-                <h1 class="text-3xl font-bold tracking-tight text-slate-900">Welcome back</h1>
-                <p class="mt-2 text-slate-500">Sign in with your hospital staff account.</p>
+                <h1 class="text-4xl xl:text-5xl font-bold tracking-tight text-slate-900">Welcome back</h1>
+                <p class="mt-3 text-lg text-slate-500">Sign in with your hospital staff account.</p>
 
                 <?php if ($timedOut): ?>
                     <div class="mt-6 flex gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900" role="status">
@@ -86,30 +86,30 @@ unset($_SESSION['timed_out']);
                     <?= icon('warning', 'w-5 h-5 shrink-0 mt-0.5') ?><span id="login-alert-text"></span>
                 </div>
 
-                <form id="login-form" class="mt-7 space-y-5" novalidate>
+                <form id="login-form" class="mt-9 space-y-6" novalidate>
                     <?= csrf_field() ?>
                     <div data-field>
-                        <label for="email" class="form-label">Email address</label>
+                        <label for="email" class="form-label !text-sm xl:!text-base">Email address</label>
                         <div class="relative">
-                            <span class="absolute inset-y-0 left-3.5 flex items-center text-slate-400 pointer-events-none"><?= icon('user', 'w-5 h-5') ?></span>
-                            <input id="email" name="email" type="email" class="form-input !pl-11 !min-h-[48px]" placeholder="you@hospital.com" autocomplete="username" required autofocus data-label="Email" inputmode="email" autocapitalize="none" spellcheck="false">
+                            <span class="absolute inset-y-0 left-4 flex items-center text-slate-400 pointer-events-none"><?= icon('user', 'w-5 h-5') ?></span>
+                            <input id="email" name="email" type="email" class="form-input !pl-12 !min-h-[56px] !text-base xl:!text-lg" placeholder="you@hospital.com" autocomplete="username" required autofocus data-label="Email" inputmode="email" autocapitalize="none" spellcheck="false">
                         </div>
                     </div>
                     <div data-field>
-                        <label for="password" class="form-label">Password</label>
+                        <label for="password" class="form-label !text-sm xl:!text-base">Password</label>
                         <div class="relative">
-                            <span class="absolute inset-y-0 left-3.5 flex items-center text-slate-400 pointer-events-none"><?= icon('key', 'w-5 h-5') ?></span>
-                            <input id="password" name="password" type="password" class="form-input !pl-11 !pr-12 !min-h-[48px]" placeholder="Enter your password" autocomplete="current-password" required data-label="Password">
+                            <span class="absolute inset-y-0 left-4 flex items-center text-slate-400 pointer-events-none"><?= icon('key', 'w-5 h-5') ?></span>
+                            <input id="password" name="password" type="password" class="form-input !pl-12 !pr-12 !min-h-[56px] !text-base xl:!text-lg" placeholder="Enter your password" autocomplete="current-password" required data-label="Password">
                             <button type="button" id="toggle-password" class="absolute inset-y-0 right-0 touch-target text-slate-400 hover:text-slate-600" aria-label="Show password" aria-pressed="false">
                                 <?= icon('eye', 'w-5 h-5') ?>
                             </button>
                         </div>
                         <p id="caps-warning" class="hidden mt-1.5 text-xs font-medium text-amber-700 flex items-center gap-1.5"><?= icon('warning', 'w-4 h-4') ?> Caps Lock is on</p>
                     </div>
-                    <button type="submit" id="login-submit" class="btn btn-primary w-full !min-h-[48px] !text-base">Sign in</button>
+                    <button type="submit" id="login-submit" class="btn btn-primary w-full !min-h-[56px] !text-lg !text-base">Sign in</button>
                 </form>
 
-                <p class="mt-8 flex items-center justify-center gap-2 text-xs text-slate-400">
+                <p class="mt-10 flex items-center justify-center gap-2 text-sm text-slate-400">
                     <?= icon('shield', 'w-4 h-4') ?> Authorized personnel only. All access is logged.
                 </p>
             </div>
