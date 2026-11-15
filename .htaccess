@@ -1,0 +1,16 @@
+# SafeMatch - Apache configuration
+Options -Indexes
+DirectoryIndex index.php
+
+# Never serve source/config artefacts directly
+<FilesMatch "\.(sql|md|log|ini|env|lock|json|bak|sh)$">
+    Require all denied
+</FilesMatch>
+
+# Security headers (PHP also sends these for dynamic responses)
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
