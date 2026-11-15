@@ -20,11 +20,12 @@ function line(string $label, $ok, string $detail = ''): void
  * Sign in first (same browser), then open /check.php?key=check&run=dashboard */
 if (isset($_GET['run'])) {
     require_once __DIR__ . '/includes/functions.php';
-    $pages = ['dashboard', 'mothers', 'newborns', 'qr-verification', 'screenings', 'assessments', 'discharge', 'users', 'activity-logs', 'profile'];
+    $public = ['login', 'index']; // no sign-in needed
+    $pages = array_merge($public, ['dashboard', 'mothers', 'newborns', 'qr-verification', 'screenings', 'assessments', 'discharge', 'users', 'activity-logs', 'profile']);
     if (!in_array($_GET['run'], $pages, true)) {
         exit("Unknown page.\n");
     }
-    if (empty($_SESSION['user_id'])) {
+    if (!in_array($_GET['run'], $public, true) && empty($_SESSION['user_id'])) {
         exit("You are not signed in. Sign in at /pages/login.php, then reload this URL.\n");
     }
     $show = function (string $what): void {
@@ -43,7 +44,7 @@ if (isset($_GET['run'])) {
         $show(get_class($t) . ': ' . $t->getMessage() . "\n  in " . $t->getFile() . ' on line ' . $t->getLine());
     });
     ob_start();
-    require __DIR__ . '/pages/' . $_GET['run'] . '.php';
+    require $_GET['run'] === 'index' ? __DIR__ . '/index.php' : __DIR__ . '/pages/' . $_GET['run'] . '.php';
     $size = strlen(ob_get_clean());
     echo "Page '{$_GET['run']}' rendered OK ($size bytes).\n";
     exit;
