@@ -16,6 +16,39 @@ function line(string $label, $ok, string $detail = ''): void
     echo str_pad($label, 34) . ($ok ? '[ OK ]  ' : '[FAIL]  ') . $detail . "\n";
 }
 
+/* ---- Page runner: renders an app page and prints the real PHP error ----
+ * Sign in first (same browser), then open /check.php?key=check&run=dashboard */
+if (isset($_GET['run'])) {
+    require_once __DIR__ . '/includes/functions.php';
+    $pages = ['dashboard', 'mothers', 'newborns', 'qr-verification', 'screenings', 'assessments', 'discharge', 'users', 'activity-logs', 'profile'];
+    if (!in_array($_GET['run'], $pages, true)) {
+        exit("Unknown page.\n");
+    }
+    if (empty($_SESSION['user_id'])) {
+        exit("You are not signed in. Sign in at /pages/login.php, then reload this URL.\n");
+    }
+    $show = function (string $what): void {
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+        echo "\n$what\n";
+    };
+    register_shutdown_function(function () use ($show) {
+        $e = error_get_last();
+        if ($e && in_array($e['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR], true)) {
+            $show("FATAL ERROR: {$e['message']}\n  in {$e['file']} on line {$e['line']}");
+        }
+    });
+    set_exception_handler(function (Throwable $t) use ($show) {
+        $show(get_class($t) . ': ' . $t->getMessage() . "\n  in " . $t->getFile() . ' on line ' . $t->getLine());
+    });
+    ob_start();
+    require __DIR__ . '/pages/' . $_GET['run'] . '.php';
+    $size = strlen(ob_get_clean());
+    echo "Page '{$_GET['run']}' rendered OK ($size bytes).\n";
+    exit;
+}
+
 echo "SafeMatch diagnostics\n=====================\n";
 line('PHP version >= 8.0', PHP_VERSION_ID >= 80000, PHP_VERSION . ' (needs 8.0+; choose it in hPanel > PHP Configuration)');
 foreach (['pdo', 'pdo_mysql', 'mbstring', 'fileinfo', 'gd', 'json'] as $ext) {
