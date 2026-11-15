@@ -137,6 +137,15 @@
 
     /* ---------------- Camera ---------------- */
 
+    /** QR-only decoding with the browser's native detector when available (much faster). */
+    function getScanner() {
+        return new Html5Qrcode('qr-reader', {
+            verbose: false,
+            formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE],
+            useBarCodeDetectorIfSupported: true,
+        });
+    }
+
     async function startCamera(deviceId) {
         if (!window.Html5Qrcode) {
             SM.toast('The scanner failed to load. Use "Scan a photo" or type the ID.', 'error', 5000);
@@ -147,12 +156,17 @@
             return;
         }
         try {
-            if (!scanner) scanner = new Html5Qrcode('qr-reader', { verbose: false });
+            if (!scanner) scanner = getScanner();
             if (scanning) await scanner.stop();
             const camera = deviceId ? { deviceId: { exact: deviceId } } : { facingMode: 'environment' };
             await scanner.start(
                 camera,
-                { fps: 10, qrbox: (w, h) => { const s = Math.floor(Math.min(w, h) * 0.7); return { width: s, height: s }; } },
+                {
+                    fps: 30,
+                    disableFlip: true, // our bands are never mirrored
+                    qrbox: (w, h) => { const s = Math.floor(Math.min(w, h) * 0.85); return { width: s, height: s }; },
+                    videoConstraints: Object.assign(deviceId ? { deviceId: { exact: deviceId } } : { facingMode: 'environment' }, { width: { ideal: 1280 }, height: { ideal: 720 } }),
+                },
                 handleCode,
                 () => { /* "no code in this frame" */ }
             );
@@ -194,7 +208,7 @@
         if (!window.Html5Qrcode) { SM.toast('The scanner failed to load.', 'error'); return; }
         try {
             if (scanning) await stopCamera();
-            if (!scanner) scanner = new Html5Qrcode('qr-reader', { verbose: false });
+            if (!scanner) scanner = getScanner();
             handleCode(await scanner.scanFile(file, false));
         } catch (_) {
             SM.toast('No QR code found in that photo. Try again with the code centred and in focus.', 'error', 4500);
@@ -212,7 +226,7 @@
         try {
             const json = await SM.api('api/qr/verify.php', {
                 method: 'POST',
-                data: { mother_qr: state.mother.raw, newborn_qr: state.newborn.raw, notes: el('verify-notes').value },
+                data: { mother_qr: state.mother.raw, newborn_qr: state.newborn.raw, notes: '' },
             });
             showResult(json.data, json.message);
         } catch (err) {
@@ -307,7 +321,6 @@
         state.mother = null;
         state.newborn = null;
         lastReject = { text: '', at: 0 };
-        el('verify-notes').value = '';
         el('result-panel').innerHTML = '';
         refresh();
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -334,6 +347,10 @@
             const value = el('manual-code').value.trim();
             if (value) handleCode(value);
         });
+
+        if (window.isSecureContext && navigator.permissions && navigator.permissions.query) {
+            navigator.permissions.query({ name: 'camera' }).then((p) => { if (p.state === 'granted') startCamera(); }).catch(() => {});
+        }
 
         window.addEventListener('beforeunload', () => { if (scanning) scanner.stop().catch(() => {}); });
         refresh();

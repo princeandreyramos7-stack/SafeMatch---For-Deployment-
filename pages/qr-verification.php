@@ -58,14 +58,6 @@ require __DIR__ . '/../templates/header.php';
                 </div>
                 <p class="form-hint">Typed IDs skip the band's signature check and are flagged in the log. Confirm identity visually.</p>
             </form>
-
-            <details class="group">
-                <summary class="cursor-pointer text-sm text-slate-500 hover:text-slate-700 list-none flex items-center gap-1">
-                    <span class="group-open:rotate-90 transition-transform inline-block">›</span> Add a note to this verification (optional)
-                </summary>
-                <label for="verify-notes" class="sr-only">Note</label>
-                <textarea id="verify-notes" rows="2" class="form-input mt-2" maxlength="1000" placeholder="e.g. Checked at nurse station before discharge"></textarea>
-            </details>
         </div>
     </section>
 

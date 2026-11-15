@@ -171,7 +171,7 @@
 
     /* ---------------- QR codes ---------------- */
 
-    function qrCard(title, subtitle, id, img) {
+    function qrCard(title, subtitle, id, img, kind) {
         return `
             <figure class="rounded-xl border border-slate-200 p-4 text-center">
                 <figcaption class="mb-2">
@@ -180,6 +180,7 @@
                     <p class="font-mono text-xs text-primary-700">${esc(id)}</p>
                 </figcaption>
                 <img src="${esc(img)}" alt="QR code for ${esc(subtitle)}" class="mx-auto w-48 h-48 sm:w-56 sm:h-56" style="image-rendering: pixelated">
+                <a href="${esc(img)}" download="${esc(id)}-${esc(kind)}-qr.png" class="btn btn-secondary btn-sm mt-3">${SM.icon("download", "w-4 h-4")} Download QR</a>
             </figure>`;
     }
 
@@ -201,8 +202,8 @@
         document.getElementById('qr-modal-sub').textContent = `Generated ${SM.fmt.datetime(qr.generated_at)}${qr.generated_by_name ? ' by ' + qr.generated_by_name : ''}`;
         document.getElementById('qr-modal-body').innerHTML = `
             <div class="grid sm:grid-cols-2 gap-4">
-                ${qrCard("Mother's band", info.mother_name, info.mother_id, qr.mother_qr_code)}
-                ${qrCard("Baby's band", info.display_name, info.newborn_id, qr.newborn_qr_code)}
+                ${qrCard("Mother's band", info.mother_name, info.mother_id, qr.mother_qr_code, "mother")}
+                ${qrCard("Baby's band", info.display_name, info.newborn_id, qr.newborn_qr_code, "baby")}
             </div>
             <p class="mt-4 text-xs text-slate-500">Each code is digitally signed. Scan the mother's band first, then the baby's, on the QR Verification page before discharge.</p>`;
     }
