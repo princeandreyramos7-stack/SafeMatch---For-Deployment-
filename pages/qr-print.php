@@ -37,7 +37,7 @@ $motherName = trim($row['m_first'] . ' ' . $row['m_last']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>QR Bands · <?= e($row['newborn_id']) ?> · <?= e(APP_NAME) ?></title>
-    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <link rel="stylesheet" href="<?= e(url("assets/css/tailwind.css")) ?>?v=<?= e(APP_VERSION) ?>">
     <style>
         @page { margin: 12mm; }
         .band { break-inside: avoid; page-break-inside: avoid; }

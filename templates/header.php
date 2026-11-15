@@ -32,20 +32,9 @@ $initials = strtoupper(implode('', array_map(fn ($p) => mb_substr($p, 0, 1), arr
     <meta name="csrf-token" content="<?= e(csrf_token()) ?>">
     <title><?= e($pageTitle) ?> · <?= e(APP_NAME) ?></title>
     <link rel="icon" href="data:image/svg+xml,<?= rawurlencode('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#14B8A6"><path d="' . SM_ICONS['heart'] . '"/></svg>') ?>">
-    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: { 50: '#f0fdfa', 100: '#ccfbf1', 200: '#99f6e4', 300: '#5eead4', 400: '#2dd4bf',
-                                   500: '#14b8a6', 600: '#0d9488', 700: '#0f766e', 800: '#115e59', 900: '#134e4a' },
-                    },
-                },
-            },
-        };
-    </script>
+    
     <link rel="stylesheet" href="<?= e(url('assets/css/custom.css')) ?>?v=<?= e(APP_VERSION) ?>">
+    <link rel="stylesheet" href="<?= e(url("assets/css/tailwind.css")) ?>?v=<?= e(APP_VERSION) ?>">
     <?= $extraHead ?? '' ?>
     <script>
         window.SM_CONFIG = <?= json_encode([

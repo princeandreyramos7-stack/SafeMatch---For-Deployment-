@@ -19,11 +19,9 @@ unset($_SESSION['timed_out']);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login · <?= e(APP_NAME) ?></title>
     <link rel="icon" href="data:image/svg+xml,<?= rawurlencode('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#14B8A6"><path d="' . SM_ICONS['heart'] . '"/></svg>') ?>">
-    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-    <script>
-        tailwind.config = { theme: { extend: { colors: { primary: { 50: '#f0fdfa', 100: '#ccfbf1', 500: '#14b8a6', 600: '#0d9488', 700: '#0f766e', 800: '#115e59', 900: '#134e4a' } } } } };
-    </script>
+    
     <link rel="stylesheet" href="<?= e(url('assets/css/custom.css')) ?>?v=<?= e(APP_VERSION) ?>">
+    <link rel="stylesheet" href="<?= e(url("assets/css/tailwind.css")) ?>?v=<?= e(APP_VERSION) ?>">
 </head>
 <body class="min-h-screen bg-slate-50 text-slate-800 antialiased">
 <div class="min-h-screen grid lg:grid-cols-2">
