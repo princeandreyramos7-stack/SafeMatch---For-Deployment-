@@ -37,9 +37,9 @@
     </div>
 </div>
 
-<script src="<?= e(url('assets/js/main.js')) ?>?v=<?= e(APP_VERSION) ?>"></script>
+<script src="<?= e(asset('assets/js/main.js')) ?>"></script>
 <?php foreach (($pageScripts ?? []) as $script): ?>
-<script src="<?= e(url('assets/js/' . $script)) ?>?v=<?= e(APP_VERSION) ?>"></script>
+<script src="<?= e(asset('assets/js/' . $script)) ?>"></script>
 <?php endforeach; ?>
 </body>
 </html>

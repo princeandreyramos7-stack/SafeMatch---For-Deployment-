@@ -19,8 +19,8 @@ unset($_SESSION['timed_out']);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sign in · <?= e(APP_NAME) ?></title>
     <link rel="icon" href="data:image/svg+xml,<?= rawurlencode('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#14B8A6"><path d="' . SM_ICONS['heart'] . '"/></svg>') ?>">
-    <link rel="stylesheet" href="<?= e(url('assets/css/custom.css')) ?>?v=<?= e(APP_VERSION) ?>">
-    <link rel="stylesheet" href="<?= e(url('assets/css/tailwind.css')) ?>?v=<?= e(APP_VERSION) ?>">
+    <link rel="stylesheet" href="<?= e(asset('assets/css/custom.css')) ?>">
+    <link rel="stylesheet" href="<?= e(asset('assets/css/tailwind.css')) ?>">
 </head>
 <body class="min-h-screen bg-white text-slate-800 antialiased">
 <div class="min-h-screen grid lg:grid-cols-[1.05fr_1fr]">
@@ -123,7 +123,7 @@ unset($_SESSION['timed_out']);
     window.SM_CONFIG = <?= json_encode(['baseUrl' => BASE_URL, 'csrfToken' => csrf_token(), 'sessionTimeout' => SESSION_TIMEOUT, 'user' => null], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>;
     window.SM_ICONS = <?= json_encode(SM_ICONS, JSON_HEX_TAG | JSON_UNESCAPED_SLASHES) ?>;
 </script>
-<script src="<?= e(url('assets/js/main.js')) ?>?v=<?= e(APP_VERSION) ?>"></script>
+<script src="<?= e(asset('assets/js/main.js')) ?>"></script>
 <script>
     (function () {
         const form = document.getElementById('login-form');

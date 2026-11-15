@@ -39,8 +39,8 @@ $faqs = [
     <title><?= e(APP_NAME) ?> · <?= e(APP_TAGLINE) ?></title>
     <meta name="description" content="SafeMatch helps maternity wards make sure every baby goes home with the right mother, using signed QR bands and a verified discharge checklist.">
     <link rel="icon" href="data:image/svg+xml,<?= rawurlencode('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#14B8A6"><path d="' . SM_ICONS['heart'] . '"/></svg>') ?>">
-    <link rel="stylesheet" href="<?= e(url('assets/css/custom.css')) ?>?v=<?= e(APP_VERSION) ?>">
-    <link rel="stylesheet" href="<?= e(url('assets/css/tailwind.css')) ?>?v=<?= e(APP_VERSION) ?>">
+    <link rel="stylesheet" href="<?= e(asset('assets/css/custom.css')) ?>">
+    <link rel="stylesheet" href="<?= e(asset('assets/css/tailwind.css')) ?>">
 </head>
 <body class="bg-white text-slate-800 antialiased">
 

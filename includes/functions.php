@@ -82,6 +82,14 @@ function url(string $path = ''): string
     return BASE_URL . '/' . ltrim($path, '/');
 }
 
+/** URL of a static asset with a cache-busting version taken from the file's modified time. */
+function asset(string $path): string
+{
+    $file = BASE_PATH . '/' . ltrim($path, '/');
+    $v = is_file($file) ? filemtime($file) : APP_VERSION;
+    return url($path) . '?v=' . $v;
+}
+
 function redirect(string $path): void
 {
     header('Location: ' . url($path));

@@ -33,8 +33,8 @@ $initials = strtoupper(implode('', array_map(fn ($p) => mb_substr($p, 0, 1), arr
     <title><?= e($pageTitle) ?> · <?= e(APP_NAME) ?></title>
     <link rel="icon" href="data:image/svg+xml,<?= rawurlencode('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#14B8A6"><path d="' . SM_ICONS['heart'] . '"/></svg>') ?>">
     
-    <link rel="stylesheet" href="<?= e(url('assets/css/custom.css')) ?>?v=<?= e(APP_VERSION) ?>">
-    <link rel="stylesheet" href="<?= e(url("assets/css/tailwind.css")) ?>?v=<?= e(APP_VERSION) ?>">
+    <link rel="stylesheet" href="<?= e(asset('assets/css/custom.css')) ?>">
+    <link rel="stylesheet" href="<?= e(asset('assets/css/tailwind.css')) ?>">
     <?= $extraHead ?? '' ?>
     <script>
         window.SM_CONFIG = <?= json_encode([
