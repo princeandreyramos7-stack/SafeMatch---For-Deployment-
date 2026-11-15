@@ -1,7 +1,7 @@
 // Rebuild assets/css/tailwind.css after changing any classes:
 //   npx tailwindcss@3.4.16 -c build/tailwind.config.js -i build/input.css -o assets/css/tailwind.css --minify
 module.exports = {
-    content: ['./pages/**/*.php', './templates/**/*.php', './assets/js/**/*.js', './includes/**/*.php'],
+    content: ['./index.php', './pages/**/*.php', './templates/**/*.php', './assets/js/**/*.js', './includes/**/*.php'],
     theme: {
         extend: {
             colors: {
