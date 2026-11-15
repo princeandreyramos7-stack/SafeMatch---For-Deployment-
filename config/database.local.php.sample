@@ -1,0 +1,10 @@
+<?php
+/**
+ * Copy this file to config/database.local.php ON THE SERVER and fill in the
+ * values from hPanel > Databases. Do not upload your real passwords elsewhere.
+ */
+define('DB_HOST', 'localhost');
+define('DB_PORT', '3306');
+define('DB_NAME', 'your_database_name');
+define('DB_USER', 'your_database_user');
+define('DB_PASS', 'your_database_password');

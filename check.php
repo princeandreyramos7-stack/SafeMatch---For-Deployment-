@@ -24,7 +24,7 @@ foreach (['pdo', 'pdo_mysql', 'mbstring', 'fileinfo', 'gd', 'json'] as $ext) {
 
 try {
     require __DIR__ . '/config/database.php';
-    line('Config loads', true, 'DB_NAME=' . DB_NAME . ' DB_USER=' . DB_USER . ' DB_HOST=' . DB_HOST);
+    line('Config loads', true, 'DB_NAME=' . DB_NAME . ' DB_HOST=' . DB_HOST . (is_file(__DIR__ . '/config/database.local.php') ? ' (using database.local.php)' : ' (no database.local.php)'));
 } catch (Throwable $e) {
     line('Config loads', false, $e->getMessage());
     exit;

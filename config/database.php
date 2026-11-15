@@ -7,11 +7,17 @@
 
 require_once __DIR__ . '/constants.php';
 
-define('DB_HOST', getenv('SAFEMATCH_DB_HOST') ?: 'localhost');
-define('DB_PORT', getenv('SAFEMATCH_DB_PORT') ?: '3306');
-define('DB_NAME', getenv('SAFEMATCH_DB_NAME') ?: 'safematch_php');
-define('DB_USER', getenv('SAFEMATCH_DB_USER') ?: 'root');
-define('DB_PASS', getenv('SAFEMATCH_DB_PASS') !== false ? getenv('SAFEMATCH_DB_PASS') : '');
+// Server-specific credentials: create config/database.local.php on the host (see
+// database.local.php.sample). It is never part of the upload, so it survives re-deploys.
+if (is_file(__DIR__ . '/database.local.php')) {
+    require __DIR__ . '/database.local.php';
+}
+
+defined('DB_HOST') || define('DB_HOST', getenv('SAFEMATCH_DB_HOST') ?: 'localhost');
+defined('DB_PORT') || define('DB_PORT', getenv('SAFEMATCH_DB_PORT') ?: '3306');
+defined('DB_NAME') || define('DB_NAME', getenv('SAFEMATCH_DB_NAME') ?: 'safematch_php');
+defined('DB_USER') || define('DB_USER', getenv('SAFEMATCH_DB_USER') ?: 'root');
+defined('DB_PASS') || define('DB_PASS', getenv('SAFEMATCH_DB_PASS') !== false ? getenv('SAFEMATCH_DB_PASS') : '');
 
 /**
  * Returns the shared PDO connection.
